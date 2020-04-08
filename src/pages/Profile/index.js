@@ -8,6 +8,8 @@ import { signOut } from '~/store/modules/auth/actions';
 
 import AvatarIcon from '~/components/AvatarIcon';
 
+import '~/global';
+
 import {
   Container,
   Info,
@@ -20,6 +22,10 @@ import {
 export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.user.profile);
+
+  const profile_image = profile.avatar
+    ? profile.avatar.url.replace('localhost', global.host)
+    : '';
 
   const dateFormatted = useMemo(
     () =>
@@ -37,7 +43,7 @@ export default function Profile() {
     <Container>
       <AvatarView>
         {profile.avatar ? (
-          <AvatarIcon size={180} source={{ uri: profile.avatar.url }} />
+          <AvatarIcon size={180} source={{ uri: profile_image }} />
         ) : (
           <AvatarIcon size={180} icon={{ name: 'person', color: '#A28FD0' }} />
         )}

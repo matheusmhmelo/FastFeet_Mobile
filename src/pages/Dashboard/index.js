@@ -8,6 +8,8 @@ import { signOut } from '~/store/modules/auth/actions';
 
 import api from '~/services/api';
 
+import '~/global';
+
 import AvatarIcon from '~/components/AvatarIcon';
 import Delivery from '~/components/Delivery';
 
@@ -31,6 +33,10 @@ import {
 function Dashboard({ navigation, isFocused }) {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.user.profile);
+
+  const profile_image = profile.avatar
+    ? profile.avatar.url.replace('localhost', global.host)
+    : '';
 
   const [selected, setSelected] = useState('pendentes');
   const [delivery, setDelivery] = useState([]);
@@ -60,7 +66,7 @@ function Dashboard({ navigation, isFocused }) {
 
       <HeaderContent>
         {profile.avatar ? (
-          <AvatarIcon size={70} source={{ uri: profile.avatar.url }} />
+          <AvatarIcon size={70} source={{ uri: profile_image }} />
         ) : (
           <AvatarIcon size={70} icon={{ name: 'person', color: '#A28FD0' }} />
         )}
