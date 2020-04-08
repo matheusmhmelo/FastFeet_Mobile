@@ -18,6 +18,8 @@ import {
   Problem,
   Description,
   Date,
+  EmptyContent,
+  EmptyText,
 } from './styles';
 
 export default function ViewProblem({ navigation }) {
@@ -52,20 +54,26 @@ export default function ViewProblem({ navigation }) {
       <Container>
         <ProblemsText>{delivery.product}</ProblemsText>
 
-        <ProlemsView>
-          <ProblemsList
-            data={problems}
-            keyExtractor={(item) => String(item.id)}
-            renderItem={({ item }) => (
-              <Problem>
-                <ProblemDescription>
-                  <Description>{item.description}</Description>
-                </ProblemDescription>
-                <Date>{item.dateFormatted}</Date>
-              </Problem>
-            )}
-          />
-        </ProlemsView>
+        {problems.length > 0 ? (
+          <ProlemsView>
+            <ProblemsList
+              data={problems}
+              keyExtractor={(item) => String(item.id)}
+              renderItem={({ item }) => (
+                <Problem>
+                  <ProblemDescription>
+                    <Description>{item.description}</Description>
+                  </ProblemDescription>
+                  <Date>{item.dateFormatted}</Date>
+                </Problem>
+              )}
+            />
+          </ProlemsView>
+        ) : (
+          <EmptyContent>
+            <EmptyText>Nenhum problema registrado</EmptyText>
+          </EmptyContent>
+        )}
       </Container>
     </DeliveryBackground>
   );

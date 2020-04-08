@@ -24,6 +24,8 @@ import {
   FilterOption,
   FilterText,
   DeliveryList,
+  EmptyContent,
+  EmptyText,
 } from './styles';
 
 function Dashboard({ navigation, isFocused }) {
@@ -100,13 +102,19 @@ function Dashboard({ navigation, isFocused }) {
         </ListFilter>
       </HeaderItems>
 
-      <DeliveryList
-        data={delivery}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => (
-          <Delivery data={item} navigation={navigation} />
-        )}
-      />
+      {delivery.length > 0 ? (
+        <DeliveryList
+          data={delivery}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => (
+            <Delivery data={item} navigation={navigation} />
+          )}
+        />
+      ) : (
+        <EmptyContent>
+          <EmptyText>Ainda não há Entregas</EmptyText>
+        </EmptyContent>
+      )}
     </Container>
   );
 }
